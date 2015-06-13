@@ -8,17 +8,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:background="#abc"
+    android:weightSum="1">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Verse Goes here"
+       android:textSize="@dimen/verse_font_main"
+       android:background="#fcd"
+       android:layout_gravity="center"
+       android:id="@+id/verse"
+       />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click Here for a new verse"
-        android:id="@+id/button"
-        android:onClick="GenerateVerse"
-        android:layout_gravity="center_vertical" />
+        android:id="@+id/getChapter"
+        android:layout_gravity="center"
+        android:text="Read Chapter"
+        android:onClick="GetChapter"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/getQuran"
+        android:layout_gravity="center"
+        android:text="Read Quran"
+        android:onClick="GetQuran"
+        />
 
 </LinearLayout>

@@ -1,24 +1,39 @@
 package com.example.shiza.dailyquranverses;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.ViewDebug;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.Random;
 
 
-public class MainActivity extends Activity {
-//    Resources   resources = getResources();
+public class MainActivity extends ActionBarActivity
+{
+    TextView textView;
+    int id;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textView = (TextView)findViewById(R.id.verse);
+
+        String[] chapterName = getResources().getStringArray(R.array.chapters);
+
+        int chapter_no = GetRandom(1,114);
+
+        String chapter_array_name = "chapter_" + chapter_no;
+
+        id = getResources().getIdentifier(chapter_array_name, "array",this.getPackageName());
+        String[] chapter = getResources().getStringArray(id);
+
+        int random_verse = GetRandom(1,chapter.length);
+
+        textView.setText(chapter[random_verse] +"\nVerse No: " + random_verse + "\nChapter:" + chapterName[chapter_no - 1]);
 
     }
 
@@ -27,23 +42,16 @@ public class MainActivity extends Activity {
             Random ran = new Random();
             return ran.nextInt((max-min) + 1) + min;
     }
-    public void GenerateVerse(View view)
+    public void GetQuran(View view)
     {
-
-            String[] chapterName = getResources().getStringArray(R.array.chapters);
-
-            int chapter_no = GetRandom(1,114);
-
-            Toast.makeText(this,"The chapter is: " + chapterName[chapter_no - 1],Toast.LENGTH_LONG).show();
-            String chapter_array_name = "chapter_" + chapter_no;
-
-            int id = getResources().getIdentifier(chapter_array_name, "array",this.getPackageName());
-            String[] chapter = getResources().getStringArray(id);
-
-            int random_verse = GetRandom(1,chapter.length);
-            Toast.makeText(this, "chapter_name is " + chapterName[chapter_no - 1] + "verse no is " + random_verse + "The verse is: " + chapter[random_verse],Toast.LENGTH_LONG).show();
-
+        Intent intent = new Intent(this,Quran.class);
+        startActivity(intent);
     }
-
+    public void GetChapter(View view)
+    {
+        Intent intent = new Intent(this,Chapter.class);
+        intent.putExtra("chapter_id",id);
+        startActivity(intent);
+    }
 
 }

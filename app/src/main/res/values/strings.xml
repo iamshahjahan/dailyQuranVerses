@@ -18869,6 +18869,9 @@
     </string-array>
 
     <string-array name="chapter_9">
+		<item>
+
+		</item>
 	<item> 
 	1. Freedom from (all) obligations (is declared) from Allah and His Messenger () to those of the Mushrikun (polytheists, pagans, idolaters, disbelievers in the Oneness of Allah), with whom you made a treaty.
 	</item>
@@ -19703,6 +19706,8 @@
 	8. And whosoever does evil equal to the weight of an atom (or a small ant), shall see it.
 	</item>
     </string-array>
+    <string name="title_activity_get_chapter">Today\'s Chapter</string>
+    <string name="title_activity_quran">Quran</string>
 
 
 </resources>
