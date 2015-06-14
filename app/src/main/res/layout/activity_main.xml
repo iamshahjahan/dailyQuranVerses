@@ -1,54 +1,38 @@
-<ScrollView
+<android.support.v4.app.FragmentTabHost
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:orientation="vertical"
-
-        tools:context=".MainActivity">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <include
             android:id="@+id/app_bar"
             layout="@layout/app_bar"
-           />
-
-
-        <TextView
-            android:id="@+id/verse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:maxLines="2000"
-            android:scrollbars="vertical"
-            android:text="Verse Goes here"
-            android:textSize="@dimen/verse_font_main" />
-
-        <Button
-            android:id="@+id/getChapter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@color/buttonColor"
-            android:onClick="GetChapter"
-            android:text="Read Chapter"
-
             />
 
-        <Button
-            android:id="@+id/getQuran"
-            android:layout_width="wrap_content"
+        <TabWidget
+            android:id="@android:id/tabs"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/buttonColor"
-            android:onClick="GetQuran"
-            android:text="Read Quran" />
+            android:layout_weight="0"/>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"/>
+
+        <FrameLayout
+            android:id="@+id/realtabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
-</ScrollView>
+</android.support.v4.app.FragmentTabHost>

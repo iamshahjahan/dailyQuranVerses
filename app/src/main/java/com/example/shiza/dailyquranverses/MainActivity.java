@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.util.Random;
 
 
@@ -27,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     int id;
     String[] chapterName;
     int chapter_no;
+    private FragmentTabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,20 +40,30 @@ public class MainActivity extends ActionBarActivity {
         toolbar.setLogo(R.mipmap.ic_launcher);
         toolbar.setTitle(" Daily Qura'n Verses");
         setSupportActionBar(toolbar);
-        textView = (TextView) findViewById(R.id.verse);
 
-        chapterName = getResources().getStringArray(R.array.chapters);
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        chapter_no = GetRandom(1, 114);
-
-        String chapter_array_name = "chapter_" + chapter_no;
-
-        id = getResources().getIdentifier(chapter_array_name, "array", this.getPackageName());
-        String[] chapter = getResources().getStringArray(id);
-
-        int random_verse = GetRandom(1, chapter.length);
-
-        textView.setText(chapter[random_verse] + "\nChapter:" + chapterName[chapter_no - 1]);
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Today's Verse"),
+                completeQuran.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Today's Chapter"),
+                completeQuran.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Complete Qur'an"),
+                completeQuran.class, null);
+//        textView = (TextView) findViewById(R.id.verse);
+//
+//        chapterName = getResources().getStringArray(R.array.chapters);
+//
+//        chapter_no = GetRandom(1, 114);
+//
+//        String chapter_array_name = "chapter_" + chapter_no;
+//
+//        id = getResources().getIdentifier(chapter_array_name, "array", this.getPackageName());
+//        String[] chapter = getResources().getStringArray(id);
+//
+//        int random_verse = GetRandom(1, chapter.length);
+//
+//        textView.setText(chapter[random_verse] + "\nChapter:" + chapterName[chapter_no - 1]);
 
     }
 
