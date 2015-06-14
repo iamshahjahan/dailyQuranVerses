@@ -17,7 +17,7 @@ public class Chapter extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+//        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
         Intent i = getIntent();
 
