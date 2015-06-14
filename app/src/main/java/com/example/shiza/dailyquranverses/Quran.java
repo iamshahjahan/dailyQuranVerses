@@ -3,6 +3,7 @@ package com.example.shiza.dailyquranverses;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +17,17 @@ import android.widget.Toast;
 
 public class Quran extends ActionBarActivity implements AdapterView.OnItemSelectedListener
 {
+    Toolbar toolbar;
     Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran);
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+//        toolbar.setTitle(" Daily Qura'n Verses");
+        setSupportActionBar(toolbar);
         spinner = (Spinner)findViewById(R.id.selectChapter);
         setTitle(" Al-Qur'an");
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.chapters,android.R.layout.simple_spinner_dropdown_item);

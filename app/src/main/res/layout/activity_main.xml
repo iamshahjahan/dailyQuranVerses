@@ -2,7 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
 
@@ -11,15 +10,15 @@
         android:id="@+id/main"
 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
 
         tools:context=".MainActivity">
         <include
             android:id="@+id/app_bar"
             layout="@layout/app_bar"
-           >
-        </include>
+           />
+
 
         <TextView
             android:id="@+id/verse"
