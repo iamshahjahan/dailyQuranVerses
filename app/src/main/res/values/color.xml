@@ -3,5 +3,7 @@
     <item name="backgroundColor" type="color">#fc6c85</item>
     <item name="buttonColor" type="color">#c5718b</item>
     <color name="primaryColor">#2196F3</color>
+    <color name="primaryColorDark">#1976D2</color>
+    <color name="accentColor">#51D6FF</color>
 
 </resources>

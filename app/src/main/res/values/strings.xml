@@ -13017,12 +13017,10 @@
 	</item>
 	<item> 
 	1. Qaf.
-	</item>
-	<item> 
 	[These letters (Qaf, etc.) are one of the miracles of the Qur\'an, and none but Allah (Alone) knows their meanings].
 	</item>
 	<item> 
-	By the Glorious Qur\'an.
+	1. By the Glorious Qur\'an.
 	</item>
 	<item> 
 	2. Nay, they wonder that there has come to them a warner (Muhammad ) from among themselves. So the disbelievers say: This is a strange thing!
@@ -19630,6 +19628,9 @@
     </string-array>
     <string name="title_activity_get_chapter">Today\'s Chapter</string>
     <string name="title_activity_quran">Quran</string>
+	<string name="Rate">Rate Us</string>
+    <string name="title_activity_contact_us">ContactUs</string>
+	<string name="share">Share</string>
 
 
 </resources>
