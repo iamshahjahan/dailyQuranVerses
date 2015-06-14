@@ -23,7 +23,7 @@ public class Quran extends ActionBarActivity implements AdapterView.OnItemSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quran);
         spinner = (Spinner)findViewById(R.id.selectChapter);
-
+        setTitle(" Al-Qur'an");
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.chapters,android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);

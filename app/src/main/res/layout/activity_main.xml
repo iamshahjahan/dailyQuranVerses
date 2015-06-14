@@ -1,43 +1,59 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:id="@+id/main"
-    android:orientation="vertical"
-    android:background="#abc"
-    android:weightSum="1">
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Verse Goes here"
-       android:textSize="@dimen/verse_font_main"
-       android:background="#fcd"
-       android:layout_gravity="center"
-       android:id="@+id/verse"
-       />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/getChapter"
-        android:layout_gravity="center"
-        android:text="Read Chapter"
-        android:onClick="GetChapter"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/getQuran"
-        android:layout_gravity="center"
-        android:text="Read Quran"
-        android:onClick="GetQuran"
-        />
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:weightSum="1"
+        tools:context=".MainActivity">
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar">
+        </include>
+
+        <TextView
+            android:id="@+id/verse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:maxLines="2000"
+            android:scrollbars="vertical"
+            android:text="Verse Goes here"
+            android:textSize="@dimen/verse_font_main" />
+
+        <Button
+            android:id="@+id/getChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@color/buttonColor"
+            android:onClick="GetChapter"
+            android:text="Read Chapter"
+
+            />
+
+        <Button
+            android:id="@+id/getQuran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/buttonColor"
+            android:onClick="GetQuran"
+            android:text="Read Quran" />
+    </LinearLayout>
+</ScrollView>
