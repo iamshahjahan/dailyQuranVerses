@@ -45,45 +45,12 @@ public class MainActivity extends ActionBarActivity {
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Today's Verse"),
-                completeQuran.class, null);
+                TodayVerse.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Today's Chapter"),
-                completeQuran.class, null);
+                TodayChapter.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Complete Qur'an"),
                 completeQuran.class, null);
-//        textView = (TextView) findViewById(R.id.verse);
-//
-//        chapterName = getResources().getStringArray(R.array.chapters);
-//
-//        chapter_no = GetRandom(1, 114);
-//
-//        String chapter_array_name = "chapter_" + chapter_no;
-//
-//        id = getResources().getIdentifier(chapter_array_name, "array", this.getPackageName());
-//        String[] chapter = getResources().getStringArray(id);
-//
-//        int random_verse = GetRandom(1, chapter.length);
-//
-//        textView.setText(chapter[random_verse] + "\nChapter:" + chapterName[chapter_no - 1]);
-
-    }
-
-    public int GetRandom(int min, int max)
-    {
-        Random ran = new Random();
-        return ran.nextInt((max - min) + 1) + min;
-    }
-
-    public void GetQuran(View view) {
-        Intent intent = new Intent(this, Quran.class);
-        startActivity(intent);
-    }
-
-    public void GetChapter(View view) {
-        Intent intent = new Intent(this, Chapter.class);
-        intent.putExtra("chapter_id", id);
-        intent.putExtra("chapter_name", chapterName[chapter_no - 1]);
-        startActivity(intent);
-    }
+ }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,5 +94,4 @@ public class MainActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

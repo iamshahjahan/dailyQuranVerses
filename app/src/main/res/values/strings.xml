@@ -19626,15 +19626,9 @@
 	8. And whosoever does evil equal to the weight of an atom (or a small ant), shall see it.
 	</item>
     </string-array>
-    <string name="title_activity_get_chapter">Today\'s Chapter</string>
-    <string name="title_activity_quran">Quran</string>
 	<string name="Rate">Rate Us</string>
-    <string name="title_activity_contact_us">ContactUs</string>
 	<string name="share">Share</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="tab1_fragment_string">Hello from fragment</string>
 
 
 </resources>
