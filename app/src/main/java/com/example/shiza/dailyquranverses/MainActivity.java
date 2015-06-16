@@ -1,6 +1,9 @@
 package com.example.shiza.dailyquranverses;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.util.Calendar;
 import java.util.Random;
 
 
@@ -32,8 +36,7 @@ public class MainActivity extends ActionBarActivity {
     private FragmentTabHost mTabHost;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -41,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         toolbar.setTitle(" Daily Qura'n Verses");
         setSupportActionBar(toolbar);
 
-        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Today's Verse"),
@@ -50,7 +53,26 @@ public class MainActivity extends ActionBarActivity {
                 TodayChapter.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator("Complete Qur'an"),
                 completeQuran.class, null);
- }
+        createNotification();
+
+    }
+
+    public void createNotification() {
+//        Get current time
+        Calendar c = Calendar.getInstance();
+
+//       Create an intent which will create your notification
+        Intent alertIntent = new Intent(this, NotificationCreaterWithAlarm.class);
+
+//       calling alarm manager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+//the alarm manager will repeatedly call the notification after specified time
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 10 * 60 * 1000, PendingIntent.getBroadcast(this, 1, alertIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT));
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,6 +87,7 @@ public class MainActivity extends ActionBarActivity {
         mShareActionProvider.setShareIntent(getDefaultIntent());
         return super.onCreateOptionsMenu(menu);
     }
+
     private Intent getDefaultIntent() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
@@ -76,8 +99,7 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.rateUs:
                 Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);

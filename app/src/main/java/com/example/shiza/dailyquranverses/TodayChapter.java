@@ -1,16 +1,16 @@
 package com.example.shiza.dailyquranverses;
 
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Random;
+import java.util.Calendar;
 
 
 /**
@@ -23,6 +23,8 @@ public class TodayChapter extends Fragment
     int id;
     String[] chapterName;
     int chapter_no;
+    SharedPreferences sharedPreferencesChapter;
+    private static String TODAY_CHAPTER = "TODAY_CHAPTER";
 
     public TodayChapter()
     {
@@ -37,26 +39,37 @@ public class TodayChapter extends Fragment
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_today_chapter, container, false);
         textView = (TextView) view.findViewById(R.id.verse);
-        chapterName = getResources().getStringArray(R.array.chapters);
 
-        chapter_no = GetRandom(1, 114);
+        Calendar c = Calendar.getInstance();
 
-        String chapter_array_name = "chapter_" + chapter_no;
+        int today = c.DATE;
 
-        id = getResources().getIdentifier(chapter_array_name, "array", getActivity().getApplicationContext().getPackageName());
-        String[] chapter = getResources().getStringArray(id);
+        String today_string = today + "";
+
+
+        String[] chapter = getChapterTodayContent(today_string);
 
         for ( int item = 0 ; item < chapter.length ; item++ )
         {
             chapter_verse += chapter[item] + "\n";
         }
-        textView.setText("Today's chapter is: " + chapterName[chapter_no - 1] + "\n" + chapter_verse);
+        textView.setText("Today's chapter is: " + getChapterToday(today_string) + "\n" + chapter_verse);
         return view;
     }
-
-    public int GetRandom(int min, int max)
+    public String[] getChapterTodayContent(String today)
     {
-        Random ran = new Random();
-        return ran.nextInt((max - min) + 1) + min;
+        sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
+        int chapter_no = sharedPreferencesChapter.getInt(today,1);
+        String chapter_array_name = "chapter_" + chapter_no;
+        id = getResources().getIdentifier(chapter_array_name, "array", getActivity().getApplicationContext().getPackageName());
+        return getResources().getStringArray(id);
+    }
+
+    public String getChapterToday(String today)
+    {
+        sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER,Context.MODE_PRIVATE);
+        int chapter_no = sharedPreferencesChapter.getInt(today,1);
+        chapterName = getResources().getStringArray(R.array.chapters);
+        return chapterName[chapter_no];
     }
 }
