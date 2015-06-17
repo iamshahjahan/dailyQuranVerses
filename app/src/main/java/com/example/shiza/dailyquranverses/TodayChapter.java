@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -42,24 +44,24 @@ public class TodayChapter extends Fragment
 
         Calendar c = Calendar.getInstance();
 
-        int today = c.DATE;
-
-        String today_string = today + "";
-
-
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        String today_string = df.format(c.getTime());
         String[] chapter = getChapterTodayContent(today_string);
+
+//        Toast.makeText(getActivity().getApplicationContext(),"Date is " + today_string,Toast.LENGTH_LONG).show();
 
         for ( int item = 0 ; item < chapter.length ; item++ )
         {
             chapter_verse += chapter[item] + "\n";
         }
         textView.setText("Today's chapter is: " + getChapterToday(today_string) + "\n" + chapter_verse);
+        chapter_verse="";
         return view;
     }
     public String[] getChapterTodayContent(String today)
     {
         sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
-        int chapter_no = sharedPreferencesChapter.getInt(today,1);
+        int chapter_no = sharedPreferencesChapter.getInt(today,2);
         String chapter_array_name = "chapter_" + chapter_no;
         id = getResources().getIdentifier(chapter_array_name, "array", getActivity().getApplicationContext().getPackageName());
         return getResources().getStringArray(id);
@@ -68,8 +70,8 @@ public class TodayChapter extends Fragment
     public String getChapterToday(String today)
     {
         sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER,Context.MODE_PRIVATE);
-        int chapter_no = sharedPreferencesChapter.getInt(today,1);
+        int chapter_no = sharedPreferencesChapter.getInt(today,0);
         chapterName = getResources().getStringArray(R.array.chapters);
-        return chapterName[chapter_no];
+        return chapterName[chapter_no - 1];
     }
 }

@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -21,7 +23,6 @@ public class TodayVerse extends Fragment
 {
     TextView textView;
     String[] chapterName;
-    int chapter_no;
     int id;
     SharedPreferences sharedPreferencesChapter;
     SharedPreferences sharedPreferencesVerse;
@@ -41,25 +42,14 @@ public class TodayVerse extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_today_verse, container, false);
         textView = (TextView) view.findViewById(R.id.verse);
-        setChapterVerse();
-
+//        setChapterVerse();
         Calendar c = Calendar.getInstance();
 
-        int today = c.DATE;
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        String today_string = df.format(c.getTime());
 
-        String today_string = today + "";
 
 
-//        chapterName = getResources().getStringArray(R.array.chapters);
-//
-//        chapter_no = GetRandom(1, 114);
-//
-//        String chapter_array_name = "chapter_" + chapter_no;
-//
-//        id = getResources().getIdentifier(chapter_array_name, "array", getActivity().getApplicationContext().getPackageName());
-//        String[] chapter = getResources().getStringArray(id);
-//
-//        int random_verse = GetRandom(1, chapter.length);
 
         textView.setText(getVerseToday(today_string) + "\nChapter:" + getChapterToday(today_string));
         return view;
@@ -71,56 +61,18 @@ public class TodayVerse extends Fragment
         return ran.nextInt((max - min) + 1) + min;
     }
 
-    public void setChapterVerse()
-    {
-
-        sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
-        sharedPreferencesVerse = getActivity().getApplicationContext().getSharedPreferences(TODAY_VERSE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor_chapter = sharedPreferencesChapter.edit();
-        SharedPreferences.Editor editor_verse = sharedPreferencesVerse.edit();
-
-        Calendar c = Calendar.getInstance();
-
-        int today = c.DATE;
-
-        String today_string = today + "";
-
-
-        int chapter_no = GetRandom(1, 114);
-
-        String chapter_array_name = "chapter_" + chapter_no;
-
-        String verse = sharedPreferencesVerse.getString(today_string,null);
-
-        if ( verse == null )
-        {
-            editor_verse.putString(today_string,getVerse(chapter_array_name));
-            editor_verse.commit();
-        }
-
-        int chapter_number = sharedPreferencesChapter.getInt(today_string,0);
-
-        if ( chapter_number == 0 )
-        {
-            editor_chapter.putInt(today_string,chapter_no -1);
-            editor_chapter.commit();
-        }
-
-
-    }
-
     public String getVerseToday(String today)
     {
         sharedPreferencesVerse = getActivity().getApplicationContext().getSharedPreferences(TODAY_VERSE, Context.MODE_PRIVATE);
-        return sharedPreferencesVerse.getString(today,"In the name of Allah, the Most gracious,the Most Merciful");
+        return sharedPreferencesVerse.getString(today,"7. The Way of those on whom You have bestowed Your Grace, not (the way) of those who earned Your Anger (such as the Jews), nor of those who went astray (such as the Christians).");
     }
 
     public String getChapterToday(String today)
     {
         sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER,Context.MODE_PRIVATE);
-        int chapter_no = sharedPreferencesChapter.getInt(today,1);
+        int chapter_no = sharedPreferencesChapter.getInt(today,0);
         chapterName = getResources().getStringArray(R.array.chapters);
-        return chapterName[chapter_no];
+        return chapterName[chapter_no - 1];
 
     }
 

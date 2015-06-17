@@ -10,6 +10,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -19,11 +21,18 @@ public class NotificationCreaterWithAlarm extends BroadcastReceiver
 {
     private static final String MyPREFERENCES = "NOTIFICATION";
     SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferencesChapter;
+    SharedPreferences sharedPreferencesVerse;
+    private static String TODAY_CHAPTER = "TODAY_CHAPTER";
+    private static String TODAY_VERSE = "TODAY_VERSE";
+
 
     @Override
     public void onReceive(Context context, Intent intent)
     {
         int notificationID = getNotificationID(context);
+        setChapterVerse(context);
+//        Toast.makeText(context,"I am on recieve",Toast.LENGTH_LONG).show();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
@@ -70,5 +79,51 @@ public class NotificationCreaterWithAlarm extends BroadcastReceiver
         editor.putInt("notificationID", notificationID);
         editor.commit();
         return notificationID;
+    }
+
+    public void setChapterVerse(Context context)
+    {
+
+        sharedPreferencesChapter = context.getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
+        sharedPreferencesVerse = context.getApplicationContext().getSharedPreferences(TODAY_VERSE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor_chapter = sharedPreferencesChapter.edit();
+        SharedPreferences.Editor editor_verse = sharedPreferencesVerse.edit();
+
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        String today_string = df.format(c.getTime());
+
+
+        int chapter_no = GetRandom(1, 114);
+
+        String chapter_array_name = "chapter_" + chapter_no;
+
+        String verse = sharedPreferencesVerse.getString(today_string,null);
+
+        if ( verse == null )
+        {
+            editor_verse.putString(today_string, getVerse(context,chapter_array_name));
+            editor_verse.apply();
+        }
+
+        int chapter_number = sharedPreferencesChapter.getInt(today_string,0);
+
+        if ( chapter_number == 0 )
+        {
+
+            editor_chapter.putInt(today_string,chapter_no);
+            editor_chapter.apply();
+        }
+
+
+    }
+
+    public String getVerse(Context context,String chapter_array_name)
+    {
+        int id = context.getResources().getIdentifier(chapter_array_name, "array", context.getPackageName());
+        String[] chapter = context.getResources().getStringArray(id);
+        int random_verse = GetRandom(1, chapter.length - 1);
+        return chapter[random_verse];
     }
 }

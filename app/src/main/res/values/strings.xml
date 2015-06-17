@@ -19615,6 +19615,11 @@
 	<string name="Rate">Rate Us</string>
 	<string name="share">Share</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="search">search</string>
+	<string name="searchHint">Search in Qur\'an</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 
 
 </resources>
