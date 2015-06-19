@@ -10,7 +10,9 @@ import android.widget.SimpleCursorAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
+
 import com.example.shiza.dailyquranverses.TodayChapter;
+
 import android.preference.Preference;
 
 /**
@@ -24,15 +26,13 @@ public class DailyQuranMethods {
     private static String TODAY_VERSE = "TODAY_VERSE";
 
 
-
     public int GetRandom(int min, int max) {
         Random ran = new Random();
         return ran.nextInt((max - min) + 1) + min;
     }
 
 
-    public void setChapterVerseOfToday(Context context)
-    {
+    public void setChapterVerseOfToday(Context context) {
 
         sharedPreferencesChapter = context.getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
         sharedPreferencesVerse = context.getApplicationContext().getSharedPreferences(TODAY_VERSE, Context.MODE_PRIVATE);
@@ -44,33 +44,30 @@ public class DailyQuranMethods {
 
         String chapter_array_name = "chapter_" + chapter_no;
 
-        String verse = sharedPreferencesVerse.getString(DateToday(),null);
+        String verse = sharedPreferencesVerse.getString(DateToday(), null);
 
-        if ( verse == null )
-        {
-            editor_verse.putString(DateToday(), getVerse(context,chapter_array_name));
+        if (verse == null) {
+            editor_verse.putString(DateToday(), getVerse(context, chapter_array_name));
             editor_verse.apply();
         }
 
-        int chapter_number = sharedPreferencesChapter.getInt(DateToday(),0);
+        int chapter_number = sharedPreferencesChapter.getInt(DateToday(), 0);
 
-        if ( chapter_number == 0 )
-        {
+        if (chapter_number == 0) {
 
-            editor_chapter.putInt(DateToday(),chapter_no);
+            editor_chapter.putInt(DateToday(), chapter_no);
             editor_chapter.apply();
         }
 
 
     }
-    public String getVerseToday(String today,Context context)
-    {
+
+    public String getVerseToday(String today, Context context) {
         sharedPreferencesVerse = context.getSharedPreferences(TODAY_VERSE, Context.MODE_PRIVATE);
-        return sharedPreferencesVerse.getString(today,"7. The Way of those on whom You have bestowed Your Grace, not (the way) of those who earned Your Anger (such as the Jews), nor of those who went astray (such as the Christians).");
+        return sharedPreferencesVerse.getString(today, "7. The Way of those on whom You have bestowed Your Grace, not (the way) of those who earned Your Anger (such as the Jews), nor of those who went astray (such as the Christians).");
     }
 
-    public String getVerse(Context context,String chapter_array_name)
-    {
+    public String getVerse(Context context, String chapter_array_name) {
         int id = context.getResources().getIdentifier(chapter_array_name, "array", context.getPackageName());
         String[] chapter = context.getResources().getStringArray(id);
         int random_verse = GetRandom(1, chapter.length - 1);
@@ -78,8 +75,7 @@ public class DailyQuranMethods {
     }
 
 
-    public String[] getChapterTodayContent(String today,Context context)
-    {
+    public String[] getChapterTodayContent(String today, Context context) {
         sharedPreferencesChapter = context.getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
         int chapter_no = sharedPreferencesChapter.getInt(today, 2);
         String chapter_array_name = "chapter_" + chapter_no;
@@ -87,23 +83,20 @@ public class DailyQuranMethods {
         return context.getResources().getStringArray(id);
     }
 
-    public String getChapterTodayName(String today,Context context)
-    {
-        sharedPreferencesChapter = context.getApplicationContext().getSharedPreferences(TODAY_CHAPTER,Context.MODE_PRIVATE);
+    public String getChapterTodayName(String today, Context context) {
+        sharedPreferencesChapter = context.getApplicationContext().getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
         int chapter_no = sharedPreferencesChapter.getInt(today, 0);
         String[] chapterName = context.getResources().getStringArray(R.array.chapters);
         return chapterName[chapter_no - 1];
     }
 
 
+    public String DateToday() {
+        Calendar c = Calendar.getInstance();
 
-    public String DateToday()
-   {
-       Calendar c = Calendar.getInstance();
-
-       SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
-       return df.format(c.getTime());
-   }
+        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
+        return df.format(c.getTime());
+    }
 
 
     //    Get quran verses in android
@@ -132,8 +125,23 @@ public class DailyQuranMethods {
         return whole_quran;
 
     }
+}
 
-    //    public void search()
+//    public String[] searchResult(String text,Context context)
+//    {
+//        String[] whole_quran = getQuranVerses(context);
+//        String[] search_list = new String[600];
+//        for ( int i = 0 ; i < whole_quran.length ; i++ )
+//        {
+//            if ( whole_quran[i].toLowerCase().contains(text.toLowerCase()))
+//            {
+//                search_list.add(whole_quran[i]);
+//            }
+//        }
+//        return search_list;
+//    }
+//}
+//    public void search()
 //    {
 //        //      Use search view on the top of your app
 //
@@ -205,35 +213,35 @@ public class DailyQuranMethods {
 //    }
 
 
-    public void populateAdapter(String query, Context context, SimpleCursorAdapter mAdapter) {
-        String[] SUGGESTIONS = getQuranVerses(context);
-        final MatrixCursor c = new MatrixCursor(new String[]{BaseColumns._ID, "cityName"});
-        int j = 0;
-        int k = 0;
-        if (query.length() > 3) {
-            k = GetRandom(0, 60);
-//            Toast.makeText(getApplicationContext(),"K is " + k,Toast.LENGTH_LONG).show();
-            for (int i = 0; i < 6144; i++) {
-
-                if (SUGGESTIONS[i].toLowerCase().contains(query.toLowerCase()) && SUGGESTIONS[i].length() > 0) {
-                    c.addRow(new Object[]{i, SUGGESTIONS[i]});
-                    j++;
-
-                    if (j > 100) {
-                        break;
-                    }
-                }
-            }
-            if (j == 0) {
-                c.addRow(new Object[]{0, "No results found."});
-            }
-        } else {
-            c.addRow(new Object[]{0, "Please enter at least 3 characters."});
-            c.addRow(new Object[]{1, "Please be patient, we have to find in more than 6,000 verses"});
-        }
-
-
-        mAdapter.changeCursor(c);
-    }
-
-}
+//    public void populateAdapter(String query, Context context, SimpleCursorAdapter mAdapter) {
+//        String[] SUGGESTIONS = getQuranVerses(context);
+//        final MatrixCursor c = new MatrixCursor(new String[]{BaseColumns._ID, "cityName"});
+//        int j = 0;
+//        int k = 0;
+//        if (query.length() > 3) {
+//            k = GetRandom(0, 60);
+////            Toast.makeText(getApplicationContext(),"K is " + k,Toast.LENGTH_LONG).show();
+//            for (int i = 0; i < 6144; i++) {
+//
+//                if (SUGGESTIONS[i].toLowerCase().contains(query.toLowerCase()) && SUGGESTIONS[i].length() > 0) {
+//                    c.addRow(new Object[]{i, SUGGESTIONS[i]});
+//                    j++;
+//
+//                    if (j > 100) {
+//                        break;
+//                    }
+//                }
+//            }
+//            if (j == 0) {
+//                c.addRow(new Object[]{0, "No results found."});
+//            }
+//        } else {
+//            c.addRow(new Object[]{0, "Please enter at least 3 characters."});
+//            c.addRow(new Object[]{1, "Please be patient, we have to find in more than 6,000 verses"});
+//        }
+//
+//
+//        mAdapter.changeCursor(c);
+//    }
+//
+//}

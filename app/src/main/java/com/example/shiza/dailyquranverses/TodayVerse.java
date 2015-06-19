@@ -32,7 +32,7 @@ public class TodayVerse extends Fragment
         textView = (TextView) view.findViewById(R.id.verse);
 //        setChapterVerse();
 
-        textView.setText(dailyQuranMethods.getVerseToday(dailyQuranMethods.DateToday(),getActivity().getApplicationContext()) + "\nChapter:" + dailyQuranMethods.getChapterTodayName(dailyQuranMethods.DateToday(),getActivity().getApplicationContext()));
+        textView.setText(dailyQuranMethods.getVerseToday(dailyQuranMethods.DateToday(),getActivity()) + "\nChapter:" + dailyQuranMethods.getChapterTodayName(dailyQuranMethods.DateToday(),getActivity()));
         return view;
     }
 

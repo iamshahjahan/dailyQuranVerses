@@ -33,7 +33,7 @@ public class TodayChapter extends Fragment
         View view =  inflater.inflate(R.layout.fragment_today_chapter, container, false);
         textView = (TextView) view.findViewById(R.id.verse);
 
-       String[] chapter = dailyQuranMethods.getChapterTodayContent(dailyQuranMethods.DateToday(), getActivity().getApplicationContext());
+       String[] chapter = dailyQuranMethods.getChapterTodayContent(dailyQuranMethods.DateToday(), getActivity());
 
 //        Toast.makeText(getActivity().getApplicationContext(),"Date is " + today_string,Toast.LENGTH_LONG).show();
 
@@ -41,7 +41,7 @@ public class TodayChapter extends Fragment
         {
             chapter_verse += chapter[item] + "\n";
         }
-        textView.setText("Today's chapter is: " + dailyQuranMethods.getChapterTodayName(dailyQuranMethods.DateToday(), getActivity().getApplicationContext()) + "\n" + chapter_verse);
+        textView.setText("Today's chapter is: " + dailyQuranMethods.getChapterTodayName(dailyQuranMethods.DateToday(), getActivity()) + "\n" + chapter_verse);
         chapter_verse="";
         return view;
     }
