@@ -9,10 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 
 /**
@@ -22,12 +18,7 @@ public class TodayChapter extends Fragment
 {
     String chapter_verse = "";
     TextView textView;
-    int id;
-    String[] chapterName;
-    int chapter_no;
-    SharedPreferences sharedPreferencesChapter;
-    private static String TODAY_CHAPTER = "TODAY_CHAPTER";
-
+    DailyQuranMethods dailyQuranMethods = new DailyQuranMethods();
     public TodayChapter()
     {
         // Required empty public constructor
@@ -42,11 +33,7 @@ public class TodayChapter extends Fragment
         View view =  inflater.inflate(R.layout.fragment_today_chapter, container, false);
         textView = (TextView) view.findViewById(R.id.verse);
 
-        Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
-        String today_string = df.format(c.getTime());
-        String[] chapter = getChapterTodayContent(today_string);
+       String[] chapter = dailyQuranMethods.getChapterTodayContent(dailyQuranMethods.DateToday(), getActivity().getApplicationContext());
 
 //        Toast.makeText(getActivity().getApplicationContext(),"Date is " + today_string,Toast.LENGTH_LONG).show();
 
@@ -54,24 +41,9 @@ public class TodayChapter extends Fragment
         {
             chapter_verse += chapter[item] + "\n";
         }
-        textView.setText("Today's chapter is: " + getChapterToday(today_string) + "\n" + chapter_verse);
+        textView.setText("Today's chapter is: " + dailyQuranMethods.getChapterTodayName(dailyQuranMethods.DateToday(), getActivity().getApplicationContext()) + "\n" + chapter_verse);
         chapter_verse="";
         return view;
     }
-    public String[] getChapterTodayContent(String today)
-    {
-        sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER, Context.MODE_PRIVATE);
-        int chapter_no = sharedPreferencesChapter.getInt(today,2);
-        String chapter_array_name = "chapter_" + chapter_no;
-        id = getResources().getIdentifier(chapter_array_name, "array", getActivity().getApplicationContext().getPackageName());
-        return getResources().getStringArray(id);
-    }
 
-    public String getChapterToday(String today)
-    {
-        sharedPreferencesChapter = getActivity().getApplicationContext().getSharedPreferences(TODAY_CHAPTER,Context.MODE_PRIVATE);
-        int chapter_no = sharedPreferencesChapter.getInt(today,0);
-        chapterName = getResources().getStringArray(R.array.chapters);
-        return chapterName[chapter_no - 1];
-    }
 }
