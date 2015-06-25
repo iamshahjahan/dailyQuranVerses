@@ -2,10 +2,13 @@ package com.example.shiza.dailyquranverses;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
@@ -87,37 +90,39 @@ public class MainActivity extends ActionBarActivity {
         inflater.inflate(R.menu.menu_main, menu);
 
 
-        // Set up ShareActionProvider's default share intent
-//        MenuItem shareItem = menu.findItem(R.id.action_share);
-//        mShareActionProvider = (ShareActionProvider)
-//                MenuItemCompat.getActionProvider(shareItem);
-//        mShareActionProvider.setShareIntent(getDefaultIntent());
+//         Set up ShareActionProvider's default share intent
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        mShareActionProvider = (ShareActionProvider)
+                MenuItemCompat.getActionProvider(shareItem);
+        mShareActionProvider.setShareIntent(getDefaultIntent());
         return true;
     }
 
-//    private Intent getDefaultIntent() {
-//        Intent intent = new Intent(Intent.ACTION_SEND);
-//        intent.setType("image/*");
-//        return intent;
-//    }
+    private Intent getDefaultIntent() {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        String shareBody = "Want to ready daily one verse from the quran. Here is the app of your choice. Download here:" + "http://amzn.to/1JZqRFc" ;
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Try out Daily Quranic Verses");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        return sharingIntent;
+    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-//            case R.id.rateUs:
-//                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
-//                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-//                try {
-//                    startActivity(goToMarket);
-//                } catch (ActivityNotFoundException e) {
-//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
-//                }
+            case R.id.action_rateUs:
+                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+                }
 
-            case R.id.search_bar:
-                startActivity(new Intent(this, SearchResultsActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

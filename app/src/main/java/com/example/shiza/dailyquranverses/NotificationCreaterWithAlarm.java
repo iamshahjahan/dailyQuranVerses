@@ -20,12 +20,7 @@ import com.example.shiza.dailyquranverses.DailyQuranMethods;
  */
 public class NotificationCreaterWithAlarm extends BroadcastReceiver
 {
-    private static final String MyPREFERENCES = "NOTIFICATION";
-    SharedPreferences sharedPreferences;
-    SharedPreferences sharedPreferencesChapter;
-    SharedPreferences sharedPreferencesVerse;
-    private static String TODAY_CHAPTER = "TODAY_CHAPTER";
-    private static String TODAY_VERSE = "TODAY_VERSE";
+
     DailyQuranMethods dailyQuranMethods = new DailyQuranMethods();
 
     @Override
