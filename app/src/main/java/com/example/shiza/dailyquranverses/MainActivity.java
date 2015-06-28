@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
 //the alarm manager will repeatedly call the notification after specified time
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() + 60 * 60 * 1000, 60 * 60 * 1000, PendingIntent.getBroadcast(this, 1, alertIntent,
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis() + 24 * 60 * 60 * 1000, 60 * 60 * 1000, PendingIntent.getBroadcast(this, 1, alertIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT));
 
     }
@@ -122,7 +122,9 @@ public class MainActivity extends ActionBarActivity {
                 } catch (ActivityNotFoundException e) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
                 }
-
+            case R.id.action_facebook:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/dqverses"));
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }

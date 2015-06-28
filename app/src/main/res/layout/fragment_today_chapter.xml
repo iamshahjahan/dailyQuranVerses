@@ -6,21 +6,26 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
-        tools:context="com.example.shiza.dailyquranverses.Chapter">
+    android:background="@color/backgroundColor"
+
+    tools:context="com.example.shiza.dailyquranverses.Chapter">
 
     <Spinner
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/selectLanguage">
     </Spinner>
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chapterName"
         android:layout_gravity="center_horizontal"
         />
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/today_chapter_list_view"
          />

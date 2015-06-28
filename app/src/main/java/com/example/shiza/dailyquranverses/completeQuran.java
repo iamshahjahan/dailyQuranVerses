@@ -3,6 +3,7 @@ package com.example.shiza.dailyquranverses;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,15 @@ import android.widget.Toast;
 public class completeQuran extends Fragment implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     ListView completeQuranListView;
+    Spinner spinnerLanguage;
     DailyQuranMethods dailyQuranMethods = new DailyQuranMethods();
-    private final String[] translateLanguage={"English","Urdu","Hindi"};
-    String language = "english";
+    private String[] chapterList;
+    private final String[] translateLanguage={"Translate To","English","Urdu","Hindi"};
 
 
     ArrayAdapter<String> adapter;
-    public completeQuran() {
+    public completeQuran()
+    {
         // Required empty public constructor
     }
 
@@ -38,22 +41,35 @@ public class completeQuran extends Fragment implements AdapterView.OnItemSelecte
     {
 
         View view = inflater.inflate(R.layout.fragment_complete_quran, container, false);
-        Spinner spinner = (Spinner)view.findViewById(R.id.selectLanguage);
+        spinnerLanguage = (Spinner)view.findViewById(R.id.selectLanguage);
+        spinner = (Spinner)view.findViewById(R.id.selectChapter);
+
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(),   android.R.layout.simple_spinner_item, translateLanguage );
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-        spinner.setAdapter(spinnerArrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerLanguage.setAdapter(spinnerArrayAdapter);
+        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
+                switch (position)
+                {
                     case 0:
-                        language = "english";
+                        dailyQuranMethods.setTranslationLanguage(getActivity().getBaseContext(), "english");
+                        SetText(spinner);
+                        break;
                     case 1:
-                        language = "urdu";
+                        dailyQuranMethods.setTranslationLanguage(getActivity().getBaseContext(),"english");
+                        SetText(spinner);
+
+                        break;
                     case 2:
-                        language = "hindi";
+                        dailyQuranMethods.setTranslationLanguage(getActivity().getBaseContext(),"urdu");
+                        SetText(spinner);
+
+                        break;
                     default:
-                        language = "english";
+                        dailyQuranMethods.setTranslationLanguage(getActivity().getBaseContext(),"hindi");
+                        SetText(spinner);
+                        break;
 
                 }
 
@@ -64,14 +80,16 @@ public class completeQuran extends Fragment implements AdapterView.OnItemSelecte
 
             }
         });
-        spinner = (Spinner)view.findViewById(R.id.selectChapter);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.chapters_name_arabic,android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         return view;
     }
+    public void SetText(Spinner spinner)
+    {
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.chapters_name_arabic_english,android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -79,7 +97,7 @@ public class completeQuran extends Fragment implements AdapterView.OnItemSelecte
         int quran_id;
         String chapter_verse="";
         position++;
-        String[] chapter = dailyQuranMethods.getChapter(position,"english",getActivity().getBaseContext());
+        String[] chapter = dailyQuranMethods.getChapter(position,dailyQuranMethods.getTranslationLanguage(getActivity().getBaseContext()),getActivity().getBaseContext());
 
         completeQuranListView = (ListView) getView().findViewById(R.id.complete_quran_list_view);
         adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,chapter);
@@ -89,6 +107,5 @@ public class completeQuran extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public void onNothingSelected(AdapterView<?> parent)
     {
-        Toast.makeText(getActivity().getApplicationContext(),"Please enter your choice",Toast.LENGTH_LONG).show();
     }
 }

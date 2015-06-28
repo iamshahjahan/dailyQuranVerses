@@ -2,35 +2,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/backgroundColor"
     android:orientation="vertical">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
         tools:context=".MainActivity">
         <Spinner
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selectLanguage">
-
         </Spinner>
 
         <TextView
+            android:layout_margin="10dp"
             android:id="@+id/verse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:maxLines="2000"
-            android:scrollbars="vertical"
             android:text="Verse Goes here"
             android:textSize="@dimen/verse_font_main" />
-
 
     </LinearLayout>
 </ScrollView>

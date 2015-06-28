@@ -2,27 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/backgroundColor"
+
     >
+
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:id="@+id/container">
-        <TextView
+        android:gravity="center_horizontal">
+
+        <Spinner
+            android:id="@+id/selectLanguage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select A Chapter:  "/>
+            android:layout_margin="10dp"></Spinner>
+
         <Spinner
             android:id="@+id/selectChapter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           />
+            android:layout_margin="10dp" />
     </LinearLayout>
+
     <ListView
-        android:layout_below="@+id/container"
+        android:id="@+id/complete_quran_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/complete_quran_list_view" />
+        android:layout_below="@+id/container" />
 
 
 </RelativeLayout>

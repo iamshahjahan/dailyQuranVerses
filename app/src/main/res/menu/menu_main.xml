@@ -11,39 +11,22 @@
 
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_star"
+        android:icon="@drawable/ic_share_variant"
         android:title="Share"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_rateUs"
         android:icon="@drawable/ic_star"
         android:title="Rate Us"
         app:showAsAction="always" />
+
     <item
-        android:id="@+id/setting"
-        android:title="Settting"
-        android:orderInCategory="100"
-        app:showAsAction="collapseActionView">
-        <menu>
-            <group
-                android:checkableBehavior="all"
-                >
-                <item android:id="@+id/action3_sub1"
-                    android:title="Hello"
-                    android:orderInCategory="100"
-                    app:showAsAction="never" />
+        android:id="@+id/action_facebook"
+        android:icon="@drawable/ic_facebook"
+        android:title="Rate Us"
+        app:showAsAction="always" />
 
-                <item android:id="@+id/action3_sub2"
-                    android:title="Hello"
-                    android:orderInCategory="100"
-                    app:showAsAction="never"/>
 
-                <item android:id="@+id/action3_sub3"
-                    android:title="Hello"
-                    android:orderInCategory="100"
-                    app:showAsAction="never" />
-            </group>
-        </menu>
-    </item>
+
 </menu>
